@@ -61,11 +61,11 @@ class calculation
         $r2 = $arrData["R2"]; //критический радиус
         $alpha = deg2rad($arrData["ALPHA"]); //угол наклона
         $n = $arrData["N"]; //длина сопла в калибрах
-        $ak= $arrData["K"];
-        $h = $arrData["H"];//шаг расчета
-        $P = $arrData["P"];
-        $T = $arrData["T"];
-        $R = $arrData["R"];
+        $ak= $arrData["K"]; //показатель адиабаты
+        $h = $arrData["H"]; //шаг расчета
+        $P = $arrData["P"]; //давление торможения
+        $T = $arrData["T"]; //температура торможения
+        $R = $arrData["R"]; //газовая постоянная
         $ro0 = $P/($R*$T);
 
         //точка касания первой окружности и второй
@@ -81,8 +81,8 @@ class calculation
 
         //длина от 0 до конца сопла
         $d = $x0 + $n*$r2;
-
         $x=0;
+
         //координаты точек окружности первой
         while($x<$k) {
             $y = sqrt($r1*$r1 - $x*$x);
@@ -101,7 +101,6 @@ class calculation
             $arData[] = array("x" => $x, "y" => $y);
             $x = $x + $h;
         }
-
 
         //считаем число Маха, температуру, давление и плотность
         foreach ($arData as $key => $data) {
