@@ -6,7 +6,7 @@
     }
     //расчет
     system::p($dataArray);
-    calculation::calc($dataArray);
+    system::p(calculation::calc($dataArray));
 require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/body.php';
 require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/script.js';
 require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/style.css';

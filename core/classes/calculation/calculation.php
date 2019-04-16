@@ -1,10 +1,11 @@
 <?php
+error_reporting(0);
 
 class calculation
 {
     //Число Маха через отношение площадей
     public function ksi($x,$r,$r2,$k){
-        echo $x." - ".$r." - ".$r2." - ".$k."<br>";
+        //echo $x." - ".$r." - ".$r2." - ".$k."<br>";
         return (M_PI*$r*$r)/(M_PI*$r2*$r2) - sqrt(pow((2/($k+1))*(1+(($k-1)/2)*$x*$x),($k+1)/(2*($k-1)))/$x);
     }
     //Давление
@@ -74,6 +75,8 @@ class calculation
         //координаты центра второй окружности
         $x0 = sqrt( ($r1*$r1) + (2*$r1*$r2) - (3*$r2*$r2) );
         $y0 = 2*$r2;
+
+        echo "x0 = ".$x0;
 
         //координаты точки начала касательной
         $l = $x0 + $r2 * sin($alpha);
