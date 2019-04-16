@@ -1,0 +1,29 @@
+.fullscreen{
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.fn-img{
+    width: 30%;
+    height: auto;
+    position: fixed;
+    left: 37%;
+    top: 10%;
+    cursor: pointer;
+}
+.fn-item{
+	display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #0000008c;
+}
+.fn-close{
+    position: fixed;
+    right: 23px;
+    top: 10px;
+    font-size: 33px;
+    cursor: pointer;
+    z-index: 500;
+}
