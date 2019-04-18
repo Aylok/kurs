@@ -76,8 +76,6 @@ class calculation
         $x0 = sqrt( ($r1*$r1) + (2*$r1*$r2) - (3*$r2*$r2) );
         $y0 = 2*$r2;
 
-        echo "x0 = ".$x0;
-
         //координаты точки начала касательной
         $l = $x0 + $r2 * sin($alpha);
         $b = ($r2 * ( 2 * tan($alpha) - sin($alpha))) / tan($alpha);
@@ -133,6 +131,13 @@ class calculation
                 $tempArray["RO"][] = $arData[$key]["ROWT"];
             }
         }
+
+        $temp1 = max($tempArray["TEMP"]);
+        $temp2 = max($tempArray["DAV"]);
+        $temp3 = max($tempArray["RO"]);
+        $temp = max($temp1,$temp2,$temp3);
+        $maxYX = array("Y"=>$temp,"X"=>$d);
+        $arData["maxYX"] = $maxYX;
         return $arData;
     }
 }

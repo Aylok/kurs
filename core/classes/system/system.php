@@ -17,5 +17,7 @@ class system
             return "Element name not specified";
         }
     }
-//    public function
+    public function errorHandler($data){
+        return $data;
+    }
 }

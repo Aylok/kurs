@@ -220,124 +220,15 @@ if(isset($_POST)){
 	</div>
 </div>
 <script>
-window.chartColors = {
-    red: 'rgb(255, 0, 0)',
-  	orange: 'rgb(255, 165, 64)',
-  	yellow: 'rgb(255, 205, 86)',
-  	green: 'rgb(75, 192, 192)',
-  	blue: 'rgb(54, 162, 235)',
-  	purple: 'rgb(153, 102, 255)',
-  	grey: 'rgb(231,233,237)'
-};
-var structure = document.getElementById("structure");
+
+
 var temp = document.getElementById("temp");
 var ro = document.getElementById("ro");
 var dav = document.getElementById("dav");
 var mach = document.getElementById("mach");
 var speed = document.getElementById("speed");
 
-var structureChart = new Chart(structure, {
-    type: 'scatter',
-    data: {
-        datasets: [{
-        	label: "Профиль сопла Лаваля",
-        	pointRadius: 0,
-      		backgroundColor: window.chartColors.blue,
-      		borderColor: window.chartColors.blue,
-            data: [
-					<?foreach ($arrData as $value) {?>
-						{
-						    x: <?=$value["x"]?>,
-						    y: <?=$value["y"]?>
-						},
-					<?} ?>
-			],
-			fill: false,
-			showLine: true,
-			scaleStartValue:0,
-            scaleStepWidth:1,
-        },{
-        	label: "T(M)",
-        	pointRadius: 0,
-      		backgroundColor: window.chartColors.red,
-      		borderColor: window.chartColors.red,
-            data: [
-					<?foreach ($arrData as $value) {?>
-						{
-						    x: <?=$value["x"]?>,
-						    y: <?=$value["TEMPWT"]?>
-						},
-					<?} ?>
-			],
-			fill: false,
-			showLine: true,
-			scaleStartValue:0,
-            scaleStepWidth:1,
-        },{
-        	label: "E(M)",
-        	pointRadius: 0,
-      		backgroundColor: window.chartColors.yellow,
-      		borderColor: window.chartColors.yellow,
-            data: [
-					<?foreach ($arrData as $value) {?>
-						{
-						    x: <?=$value["x"]?>,
-						    y: <?=$value["ROWT"]?>
-						},
-					<?} ?>
-			],
-			fill: false,
-			showLine: true,
-			scaleStartValue:0,
-            scaleStepWidth:1,
-        },{
-        	label: "PI(M)",
-        	pointRadius: 0,
-      		backgroundColor: window.chartColors.orange,
-      		borderColor: window.chartColors.orange,
-            data: [
-					<?foreach ($arrData as $value) {?>
-						{
-						    x: <?=$value["x"]?>,
-						    y: <?=$value["DAVWT"]?>
-						},
-					<?} ?>
-			],
-			fill: false,
-			showLine: true,
-			scaleStartValue:0,
-            scaleStepWidth:1,
-        }]
-    },
-    options: {
 
-    	responsive: true,
-    	aspectRatio: 1,
-
-        scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-			    ticks: {
-			    	min:0,
-			    	max:<?=$maxYX["X"]?>,
-			      	stepSize: 0.1,
-			      	//fixedStepSize: 1,
-			    }
-            }],
-            yAxes: [{
-                stacked: true,
-                type: 'linear',
-			    ticks: {
-			    	min:0,
-			    	max:<?=$maxYX["Y"]?>,
-			      	stepSize: 0.1,
-			      	//fixedStepSize: 1,
-			    }
-            }]
-        }
-    }
-});
 
 var machChart = new Chart(mach, {
     type: 'scatter',

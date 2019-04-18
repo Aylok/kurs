@@ -1,6 +1,6 @@
 <?php
 
-$dataArray = array(
+$inputDataArray = array(
     "R1" => 0.3,
     "R2" => 0.1,
     "ALPHA" => 11,
