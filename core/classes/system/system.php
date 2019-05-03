@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * Class system
+ */
 class system
 {
-    public function p($ar,$type=false){
+    /**
+     * @param $ar
+     * @param bool $type
+     */
+    public function p($ar, $type=false){
         echo "<pre>";
         if(!$type)
                 print_r($ar);
@@ -10,7 +17,13 @@ class system
                 var_dump($ar);
         echo "</pre>";
     }
-    public function incEl($elName = "", $elData= array()){
+
+    /**
+     * @param string $elName
+     * @param array $elData
+     * @return string
+     */
+    public function incEl($elName = "", $elParams = array(), $elData= array()){
         if(!empty($elName)){
             require_once $_SERVER['DOCUMENT_ROOT'].'/core/elements/'.$elName.'/body.php';
         }else{

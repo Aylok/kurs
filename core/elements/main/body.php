@@ -1,22 +1,57 @@
 <?
     //вызов функции на проверку входных данных
-    if(empty($elData) && !isset($elData["R1"])){
+    if (empty($elData) && !isset($elData["R1"])) {
         require_once "defaultValue.php";
         $error = false;
-    }else{
+    } else {
         $inputDataArray = system::errorHandler($elData);
     }
     //расчет
     $dataArray = calculation::calc($inputDataArray);
-    $temp1 = max($tempArray["TEMP"]);
-    $temp2 = max($tempArray["DAV"]);
-    $temp3 = max($tempArray["RO"]);
-    $temp = max($temp1,$temp2,$temp3);
-    $maxYX = $dataArray["maxYX"];
-    unset($dataArray["maxYX"]);
-require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/body.php';
-require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/script.js';
-require $_SERVER['DOCUMENT_ROOT'].'/core/view/elements/main/style.css';
+    //максимуму по Х и У
+    $maxXY = $dataArray["maxYX"];
+
+    foreach ($elParams["outputData"] as $key => $el) {
+        $result[$el["Y"]] = array(
+            "NAME" => $el["NAME"],
+            "X" => $el["X"],
+            "COLOR" => $el["COLOR"],
+            "DATA" => array()
+        );
+    }
+
+    foreach ($result as $key => $data) {
+        $result[$key]["DATA"]["X"] = $dataArray["X"];
+        $result[$key]["DATA"]["Y"] = $dataArray[$key];
+    }
+
+
+    foreach ($elParams["otherEl"] as $el) {
+        system::incEl(
+            $elName = $el["elName"],
+            $elParams = array(
+                "outputData" => array(
+                    "NAME" => $el["title"],
+                    "X" => $el["X"],
+                    "Y" => $el["Y"],
+                    "COLOR" => $el["COLOR"]
+                )
+            ),
+            $elData = array(
+                "X" => $dataArray[$el["X"]],
+                "Y" => $dataArray[$el["Y"]]
+            )
+        );
+    }
+
+    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/body.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/script.js';
+    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/style.css';
+
+
+
+
+
 ?>
 
 

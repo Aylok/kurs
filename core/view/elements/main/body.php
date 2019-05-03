@@ -59,121 +59,73 @@
             </div>
         </div>
     </div>
-</section>
+    <script>
+        $(document).ready(function () {
+            window.chartColors = {
+                red: 'rgb(255, 0, 0)',
+                orange: 'rgb(255, 165, 64)',
+                yellow: 'rgb(255, 205, 86)',
+                green: 'rgb(75, 192, 192)',
+                blue: 'rgb(54, 162, 235)',
+                purple: 'rgb(153, 102, 255)',
+                grey: 'rgb(231,233,237)'
+            };
+            var structure = document.getElementById("structure");
+            var structureChart = new Chart(structure, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        <?foreach ($result as $data){?>
+                            {
+                            label: "<?=$data["NAME"]?>",
+                            pointRadius: 0,
+                            backgroundColor: window.chartColors.<?=$data["COLOR"]?>,
+                            borderColor: window.chartColors.<?=$data["COLOR"]?>,
+                            data: [
+                                <?foreach ($data["DATA"]["X"] as $key => $value) {?>
+                                {
+                                    x: <?=$value?>,
+                                    y: <?=$data["DATA"]["Y"][$key] ?>
+                                },
+                                <?} ?>
+                            ],
+                            fill: false,
+                            showLine: true,
+                            scaleStartValue:0,
+                            scaleStepWidth:1,
+                            },
+                        <?}?>
+                        ]
+                },
+                options: {
 
-<script>
-    $(document).ready(function () {
-        window.chartColors = {
-            red: 'rgb(255, 0, 0)',
-            orange: 'rgb(255, 165, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green: 'rgb(75, 192, 192)',
-            blue: 'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey: 'rgb(231,233,237)'
-        };
-        var structure = document.getElementById("structure");
-        var structureChart = new Chart(structure, {
-            type: 'scatter',
-            data: {
-                datasets: [{
-                    label: "Профиль сопла Лаваля",
-                    pointRadius: 0,
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
-                    data: [
-                        <?foreach ($dataArray as $value) {?>
-                        {
-                            x: <?=$value["x"]?>,
-                            y: <?=$value["y"]?>
-                        },
-                        <?} ?>
-                    ],
-                    fill: false,
-                    showLine: true,
-                    scaleStartValue:0,
-                    scaleStepWidth:1,
-                },{
-                    label: "T(M)",
-                    pointRadius: 0,
-                    backgroundColor: window.chartColors.red,
-                    borderColor: window.chartColors.red,
-                    data: [
-                        <?foreach ($dataArray as $value) {?>
-                        {
-                            x: <?=$value["x"]?>,
-                            y: <?=$value["TEMPWT"]?>
-                        },
-                        <?} ?>
-                    ],
-                    fill: false,
-                    showLine: true,
-                    scaleStartValue:0,
-                    scaleStepWidth:1,
-                },{
-                    label: "E(M)",
-                    pointRadius: 0,
-                    backgroundColor: window.chartColors.yellow,
-                    borderColor: window.chartColors.yellow,
-                    data: [
-                        <?foreach ($dataArray as $value) {?>
-                        {
-                            x: <?=$value["x"]?>,
-                            y: <?=$value["ROWT"]?>
-                        },
-                        <?} ?>
-                    ],
-                    fill: false,
-                    showLine: true,
-                    scaleStartValue:0,
-                    scaleStepWidth:1,
-                },{
-                    label: "PI(M)",
-                    pointRadius: 0,
-                    backgroundColor: window.chartColors.orange,
-                    borderColor: window.chartColors.orange,
-                    data: [
-                        <?foreach ($dataArray as $value) {?>
-                        {
-                            x: <?=$value["x"]?>,
-                            y: <?=$value["DAVWT"]?>
-                        },
-                        <?} ?>
-                    ],
-                    fill: false,
-                    showLine: true,
-                    scaleStartValue:0,
-                    scaleStepWidth:1,
-                }]
-            },
-            options: {
+                    responsive: true,
+                    aspectRatio: 1,
 
-                responsive: true,
-                aspectRatio: 1,
-
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom',
-                        ticks: {
-                            min:0,
-                            max:<?=$maxYX["X"]?>,
-                            stepSize: 0.1,
-                            //fixedStepSize: 1,
-                        }
-                    }],
-                    yAxes: [{
-                        stacked: true,
-                        type: 'linear',
-                        ticks: {
-                            min:0,
-                            max:<?=$maxYX["Y"]?>,
-                            stepSize: 0.1,
-                            //fixedStepSize: 1,
-                        }
-                    }]
+                    scales: {
+                        xAxes: [{
+                            type: 'linear',
+                            position: 'bottom',
+                            ticks: {
+                                min:0,
+                                max:<?=$maxXY["X"]?>,
+                                stepSize: 0.1,
+                                //fixedStepSize: 1,
+                            }
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            type: 'linear',
+                            ticks: {
+                                min:0,
+                                max:<?=$maxXY["Y"]?>,
+                                stepSize: 0.1,
+                                //fixedStepSize: 1,
+                            }
+                        }]
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
+</section>
