@@ -4,54 +4,48 @@
         require_once "defaultValue.php";
         $error = false;
     } else {
-        $inputDataArray = system::errorHandler($elData);
+        require_once "defaultValue.php";
+        $error = system::errorHandler($elData, $inputDataArray);
+        $inputDataArray = $elData;
     }
-    //расчет
-    $dataArray = calculation::calc($inputDataArray);
-    //максимуму по Х и У
-    $maxXY = $dataArray["maxYX"];
+    if (!$error["ERROR"]) {
+        //расчет
+        $dataArray = calculation::calc($inputDataArray);
+        //максимуму по Х и У
+        $maxXY = $dataArray["maxYX"];
 
-    foreach ($elParams["outputData"] as $key => $el) {
-        $result[$el["Y"]] = array(
-            "NAME" => $el["NAME"],
-            "X" => $el["X"],
-            "COLOR" => $el["COLOR"],
-            "DATA" => array()
-        );
+        foreach ($elParams["outputData"] as $key => $el) {
+            $result[$el["Y"]] = array(
+                "NAME" => $el["NAME"],
+                "X" => $el["X"],
+                "COLOR" => $el["COLOR"],
+                "DATA" => array()
+            );
+        }
+
+        foreach ($result as $key => $data) {
+            $result[$key]["DATA"]["X"] = $dataArray["X"];
+            $result[$key]["DATA"]["Y"] = $dataArray[$key];
+        }
+
+        system::renderElement("main", array("result" => $result, "inputDataArray" => $inputDataArray, "maxXY" => $maxXY), false);
+        if(isset($elParams["otherEl"])){
+//            foreach ($elParams["otherEl"] as $el) {
+//                //system::p($el);
+//                system::incEl(
+//                    $el["elName"],
+//                    $el,
+//                    array(
+//                        "X" => $dataArray[$el["X"]],
+//                        "Y" => $dataArray[$el["Y"]]
+//                    )
+//                );
+//            }
+            system::incEl("smallScheduleGroup",$elParams["otherEl"], $dataArray);
+        }
+    } else {
+        system::renderElement("main", array("error" => $error, "inputDataArray" => $inputDataArray), true);
     }
 
-    foreach ($result as $key => $data) {
-        $result[$key]["DATA"]["X"] = $dataArray["X"];
-        $result[$key]["DATA"]["Y"] = $dataArray[$key];
-    }
-
-
-    foreach ($elParams["otherEl"] as $el) {
-        system::incEl(
-            $elName = $el["elName"],
-            $elParams = array(
-                "outputData" => array(
-                    "NAME" => $el["title"],
-                    "X" => $el["X"],
-                    "Y" => $el["Y"],
-                    "COLOR" => $el["COLOR"]
-                )
-            ),
-            $elData = array(
-                "X" => $dataArray[$el["X"]],
-                "Y" => $dataArray[$el["Y"]]
-            )
-        );
-    }
-
-    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/body.php';
-    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/script.js';
-    require $_SERVER['DOCUMENT_ROOT'] . '/core/view/elements/main/style.css';
-
-
-
-
-
-?>
 
 
