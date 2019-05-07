@@ -3,11 +3,12 @@ error_reporting(0);
 
 class calculation
 {
+
     //Число Маха через отношение площадей
     public function ksi($x, $r, $r2, $k)
     {
-        //echo $x." - ".$r." - ".$r2." - ".$k."<br>";
-        return (M_PI * $r * $r) / (M_PI * $r2 * $r2) - sqrt(pow((2 / ($k + 1)) * (1 + (($k - 1) / 2) * $x * $x), ($k + 1) / (2 * ($k - 1))) / $x);
+        $ksi =  (M_PI * $r * $r) / (M_PI * $r2 * $r2) - sqrt(pow((2 / ($k + 1)) * (1 + (($k - 1) / 2) * $x * $x), ($k + 1) / (2 * ($k - 1))) / $x);
+        return $ksi;
     }
 
     //Давление
@@ -62,8 +63,8 @@ class calculation
                 $a = $c;
             }
         }
-        $x = ($a + $b) / 2;
-        return $x;
+        $mach = ($a + $b) / 2;
+        return $mach;
     }
 
     public function calc($arrData = array())
@@ -154,7 +155,7 @@ class calculation
                 $arData["DENSITY"][$key] = self::densityWithMach($ro0, $arData["MACH"][$key], $ak);
 
                 $arData["TEMPERATURE_WITHOUT"] [$key] = self::temperature($T, $arData["MACH"][$key], $ak, 1);
-
+                
                 $arData["PRESSURE_WITHOUT"][$key] = self::pressure($P, $arData["MACH"][$key], $ak, 1);
 
                 $arData["DENSITY_WITHOUT"][$key] = self::densityWithMach($ro0, $arData["MACH"][$key], $ak, 1);
@@ -174,6 +175,7 @@ class calculation
         $temp = max($temp1, $temp2, $temp3);
         $maxYX = array("Y" => $temp, "X" => $d);
         $arData["maxYX"] = $maxYX;
+        //system::p($arData);
         return $arData;
     }
 }

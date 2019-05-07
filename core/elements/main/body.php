@@ -27,7 +27,7 @@
             $result[$key]["DATA"]["X"] = $dataArray["X"];
             $result[$key]["DATA"]["Y"] = $dataArray[$key];
         }
-
+        // system::p($result);
         system::renderElement("main", array("result" => $result, "inputDataArray" => $inputDataArray, "maxXY" => $maxXY), false);
         if(isset($elParams["otherEl"])){
 //            foreach ($elParams["otherEl"] as $el) {
@@ -41,7 +41,7 @@
 //                    )
 //                );
 //            }
-            system::incEl("smallScheduleGroup",$elParams["otherEl"], $dataArray);
+            system::incEl($elParams["otherEl"]["elName"],$elParams["otherEl"]["elements"], $dataArray);
         }
     } else {
         system::renderElement("main", array("error" => $error, "inputDataArray" => $inputDataArray), true);
